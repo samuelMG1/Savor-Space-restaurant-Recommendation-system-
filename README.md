@@ -1,9 +1,9 @@
 # Food Tourism: Personalized Restaurant Recommendations
 ## Group members:
-* Nancy Maina
+* Samuel gathogo- lead
 * Andrew Manwa
 * Elsie Serem
-* Samuel Gathogo
+* Nancy Maina
 * Martin Omondi
 ## Table Of Contents
 1. [Introduction](#introduction)
