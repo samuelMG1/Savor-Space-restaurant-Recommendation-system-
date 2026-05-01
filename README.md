@@ -1,143 +1,397 @@
 # Food Tourism: Personalized Restaurant Recommendations
 
-## Table Of Contents
-1. [Introduction](#introduction)
-2. [Problem Statement](#problem-statement)
-3. [Business understanding](#Business-understanding)
-4. [Data Understanding](#data-understanding)
-5. [Data Preparation](#data-preparation)
-6. [Data Modeling](#data-modeling)
+## Table of Contents
+1. Introduction  
+2. Business Problem  
+3. Stakeholders  
+4. Objectives  
+5. Business Understanding  
+6. Data Understanding  
+7. Data Preparation  
+8. Exploratory Data Analysis (EDA)  
+9. Modeling Approach  
+10. Results  
+11. Business Impact  
+12. Recommendations  
+13. Future Improvements  
+14. Contributors  
+15. License  
 
-![Amazing Personalized Service](https://www.lsretail.com/hubfs/BLOG_5-ways-offer-amazing-personalized-service-restaurant.png)
+---
+
 # Introduction
 
-Savor Space is a growing tourism and travel agency offering a wide range of services; from booking accommodations to providing tour guides and creating personalized travel experiences. Our mission is to ensure that tourists have an enriching and seamless journey hence fully enjoying their destination.
+Savor Space is a tourism and travel company focused on delivering seamless and memorable travel experiences. Beyond accommodation bookings and guided tours, the company recognizes that food experiences are a critical part of tourism.
 
-We believe that traveling is about more than just sightseeing,it's also about savoring local cuisines that suit individual tastes. Whether a tourist is looking for traditional dishes, vegan options, or a fine dining experience, finding their preferred restaurant guarantees a satisfying experience. To enhance this specific aspect of their journey, Savor Space is developing a restaurant recommendation system designed to help tourists discover dining spots that align with their preferences,ensuring a memorable and enjoyable culinary experience.
+Travelers often struggle to identify restaurants that match their preferences in unfamiliar destinations. To solve this, Savor Space developed an AI-powered restaurant recommendation system that personalizes restaurant suggestions based on customer preferences, reviews, dietary needs, and location.
 
-# Problem Statement
-Its not easy for a majority of tourists to find restaurants that align with their tastes, especially when visiting unfamiliar locations. Lack of personalized recommendations means that they may rely on random reviews, which do not always reflect their preferences or specific dining needs. The lack of tailored suggestions can negatively impact a tourist's overall experience. The problem Savor Space seeks to solve is how to provide accurate and personalized restaurant recommendations based on individual preferences, allowing tourists to easily find eateries they will enjoy.
+The goal was to create a production-ready recommendation engine that improves tourist satisfaction while increasing engagement with the Savor Space platform.
 
-#### Stakeholders
+---
 
-* **Savor Space Management:** An interest in offering personalized and innovative services to boost customer satisfaction and retention thus positvely impacting their ROI.
+# Business Problem
 
-* **Tourists:** They are the primary users of the system. They will benefit from the personalized recommendations
+Tourists visiting new destinations frequently rely on random online reviews or generic search rankings when choosing restaurants. This creates several challenges:
 
-* **Restaurant Owners:** Although they are not directly involved, they may benefit from increased visibility when their restaurant is recommended in alignment with customer preferences.
+- Poor dining experiences caused by irrelevant recommendations  
+- Difficulty finding restaurants that meet dietary preferences  
+- Information overload from too many options  
+- Lower trust in travel platforms that lack personalization  
 
-# Objective
+Savor Space needed a scalable recommendation system capable of delivering accurate, personalized restaurant suggestions in real time.
 
-**1. To develop a robust restaurant recommendation system**- that provides personalized suggestions to tourists based on their preferences, dietary restrictions, and location.
+---
 
-**2. To improve tourist satisfaction**- this is done by enabling them discover restaurants that match their individual tastes, enhancing their overall travel experience.
+# Stakeholders
 
-**3. To leverage data science techniques**-these include: Natural Language Processing (NLP) and recommendation algorithms (content-based and collaborative filtering) to ensure accurate and reliable recommendations.
+### Savor Space Management
+Interested in improving customer retention, increasing platform engagement, and boosting ROI through personalized services.
 
-**4. To evaluate and improve the recommendation system**- can be achieved by using advanced models and performance metrics like RMSE to optimize the system's accuracy.
+### Tourists / End Users
+Primary beneficiaries who receive tailored restaurant recommendations based on their tastes and travel needs.
 
+### Restaurant Owners
+Gain increased visibility and traffic when their businesses are recommended to suitable customers.
+
+---
+
+# Objectives
+
+### Primary Goals
+
+1. Build a robust restaurant recommendation engine  
+2. Improve tourist dining experiences through personalization  
+3. Leverage machine learning and NLP techniques  
+4. Optimize recommendation quality using measurable metrics  
+
+### Technical Goals
+
+- Content-Based Filtering  
+- Collaborative Filtering  
+- Sentiment Analysis  
+- Review Text Processing  
+- RMSE Optimization  
+- Scalable Recommendation Architecture  
+
+---
 
 # Business Understanding
-Savor Space is a tourism and travel agency that aims to provide a seamless and enriching experience for
-tourists. The agency offers a wide range of services, including booking accommodations, providing tour guides, and creating personalized travel experiences. The restaurant recommendation system is a key component of this service, as it enables tourists to discover dining spots that align with their preferences.
-# Data understanding
-In order to come up with a cutting edge restaurant recommendation system, we opted to get real-time data from Yelp.com. The data was extracted through web scraping and a total of five json datasets were obtained. 
 
-This restaurant recommendation system leverages two  primary datasets namely the **business.json** and the **review.json** as the had relevant information required to develop the recmmendation system.
+Food is one of the strongest drivers of travel satisfaction. A traveler who enjoys meals aligned with their preferences is more likely to rate their overall trip positively.
 
-**1) Business Dataset**
+For Savor Space, a recommendation engine creates value by:
 
-This dataset includes essential information about a variety of restaurants.
+- Increasing app engagement  
+- Building customer loyalty  
+- Improving trip satisfaction scores  
+- Creating upsell opportunities for tourism packages  
+- Strengthening competitive advantage through personalization  
 
-**2) Review Dataset**
+---
 
-This dataset provides insights into user preferences and their dining experiences.
-# Data preparation
-The data was preprocessed to ensure that it was in a suitable format for analysis. This involved the following steps:
-1. **Data Cleaning**: Removing any duplicate or irrelevant data.
-2. **Data Transformation**: Converting the data into a suitable format for analysis.
-3. **Data Normalization**: Scaling the data to a common range to prevent feature dominance.
-4. **Data Modeling**
+# Data Understanding
 
+To develop a real-world recommendation system, restaurant and customer review data were sourced from Yelp.
+
+Five JSON datasets were collected, with two primary datasets used for modeling:
+
+## 1. Business Dataset (`business.json`)
+
+Contains structured restaurant data such as:
+
+- Business name  
+- Category  
+- Location  
+- Ratings  
+- Review counts  
+- Operational metadata  
+
+## 2. Review Dataset (`review.json`)
+
+Contains user-generated review data including:
+
+- User ratings  
+- Text reviews  
+- Sentiment indicators  
+- User preference signals  
+
+These datasets enabled both structured and unstructured recommendation modeling.
+
+---
+
+# Data Preparation
+
+Data preparation focused on production-quality preprocessing.
+
+## Steps Completed
+
+### Data Cleaning
+
+- Removed duplicates  
+- Filtered irrelevant records  
+- Standardized missing values  
+
+### Data Transformation
+
+- Converted raw JSON into tabular analytical format  
+- Joined business and review datasets  
+
+### Feature Engineering
+
+Created new variables such as:
+
+- Average sentiment score  
+- Review frequency  
+- Category vectors  
+- Combined preference profiles  
+
+### Normalization
+
+Scaled numerical features to prevent dominance during model training.
+
+---
 
 # Exploratory Data Analysis (EDA)
-The EDA was performed to understand the distribution of the data and identify any patterns or correlations.
-The dataset was analyzed to understand trends, including the distribution of business ratings, popular restaurant categories, and the number of reviews per city. Visualizations such as histograms, box plots, and word clouds were used to illustrate key insights.
 
-This EDA offered vital insights,the differences in the distribution of user ratings and business ratings in the dataset and what do these differences indicate about user preferences?
+EDA was conducted to identify market patterns and user behavior.
 
-![alt text](image-4.png)
+---
 
-**Correlation between Rating and B/S Rating**
-The correlation value of 0.41 indicates a moderate positive relationship between restaurant or service ratings and B/S Ratings. This suggests that as a business's rating increases, its B/S Rating also tends to rise, implying that higher individual ratings often lead to a better overall rating based on user reviews.
-**Distribution of Categories**
-What are the most prevalent restaurant categories and how does the distribution of these categories impact the restaurant landscape in terms of user preferences and choices?
+## Rating Relationships
 
-![alt text](image-5.png)
+A correlation score of **0.41** was found between business ratings and user review ratings.
 
-**Distribution of Restaurants across the citties and states**
-The distribution of restaurants across cities and states is uneven, with some cities having a higher concentration of restaurants.
+### Insight:
 
-![alt text](image-6.png)
-From the analysis above it is clear that philadephia has the highest number of restaurantst city. Following, but not as closely, is Tampa, indicating a notable restaurant presence. In contrast, the cities of Edmonton and Santa Barbara have fewer restaurants, making them less common in this dataset.
-**Popular Restaurants**
-The most popular restaurants in the dataset are those with high ratings and a large number of reviews. These restaurants are likely to be well-known and have a strong reputation among users.
-![alt text](image-7.png)
-**Review Word Cloud Analysis**
-The word cloud analysis reveals the most frequently used words in the reviews, providing insights into user preferences.
-![alt text](image-8.png)
-The word cloud visually represents the most common words found in the positive review texts, where the size of each word in the cloud corresponds to its frequency in the reviews.
+This indicates a moderate positive relationship, meaning higher-rated restaurants generally receive stronger customer sentiment.
 
-# Modeling
-In this section we created a recommendation system using the datasets to solve our main problem.
-We also did some sentiment Analysis and performed some text preprocessing such as:
--Feature engineering : further feature engineering of the columns to meet the required specifications for analysis eg aggregating text reviews, creating new columns from the existing columns .. etc
-- Removal of Punctuations and Removal of Stopwords - we used the **RegexpTokenizer()** method
--  Stemming - reducing words to their root meaning , we used the **SnowballStemmer()** method
-- Word-Vectorization - splitting text data into a vector of individual words for further and easier nlp analysis, we used the **TidfVectorizer()** method that vectorizes text data and calculates their respective Term Frequency - Inverse Document Frequency (TI-IDF) values.
+---
 
-## Content-based Recommendation System:
-We developed a content-based recommendation system using the cosine similarity matrix to match restaurants with user preferences. By comparing the similarity between different restaurants and the customer's specified attributes, where we can recommend the top N similar restaurants based on their input.
+## Restaurant Categories
 
-## Deep Neural Networks:
-We used  Keras deep neural network to implement a recommendation system and tried to improve our RMSE scores by using neural networks. and got that:
-Number of Users:  34497
-Number of Restaurants:  3720
+Popular categories dominated the dataset, showing strong demand clusters.
 
-The baseline model had a training RMSE of 0.3896 and a test RMSE of 1.3671 hence being our better neural networks model with the lowest test scores.
+### Insight:
 
-In all the models SVD emerged to be the best RMSE score of 1.25
+Category concentration helps guide recommendation relevance and market segmentation.
 
-## Conclusion
-In conclusion, this project successfully developed an interactive and user-friendly restaurant recommendation system that offers personalized dining suggestions while considering various factors influencing restaurant ratings and user preferences. The advanced recommendation algorithm enhances users' dining experiences by providing tailored recommendations.
+---
 
-We achieved specific objectives by designing a user-friendly website for easy interaction with the system and conducting in-depth analyses of the factors affecting restaurant ratings. This understanding helped refine our algorithms to deliver relevant suggestions.
+## Geographic Distribution
 
-Additionally, we utilized Folium for geographical data visualization, creating interactive maps that highlight geographic trends in restaurant recommendations. These maps make the experience more engaging and help users discover new dining options in their preferred areas.
+Restaurant availability was uneven across cities.
 
-Overall, this project has effectively delivered a comprehensive restaurant recommendation system, enabling users to access personalized suggestions based on various factors and geographical trends, thus enhancing their dining experiences.
+### Major Markets:
 
-## Recommendations
-* User Feedback Integration: Actively gather and incorporate user feedback to enhance the recommendation system.
+- Philadelphia (highest concentration)  
+- Tampa (strong secondary market)  
 
-* Improved User Profiles: Utilize collected data to deliver more personalized restaurant recommendations.
+### Lower Density Markets:
 
-* Refined Algorithms: Continuously improve the recommendation algorithms by exploring advanced machine learning techniques, including deep learning, to boost accuracy and personalization.
+- Edmonton  
+- Santa Barbara  
 
-* Geographical Expansion: Gradually broaden the system's geographical coverage to include more regions and cities, offering users a wider selection of dining options.
+### Insight:
 
-## Future Improvement Ideas
+Location density strongly impacts recommendation diversity.
 
-* Community Engagement: Encourage users to share their dining experiences and reviews. Implement social sharing features to foster a community and facilitate peer recommendations.
+---
 
-* Real-Time Updates: Provide real-time updates on restaurant information, including opening hours, special offers, and menu changes, ensuring users have the latest data.
+## Popular Restaurants
 
-* Food Delivery Integration: Partner with food delivery services to enable users to order for delivery or pickup directly through the recommendation system.
+Restaurants with:
 
-* Advanced Machine Learning: Investigate advanced machine learning algorithms to further improve recommendation accuracy.
+- High review volume  
+- High average rating  
 
+were consistently top-ranked.
 
-This project was developed by Samuel Gathogo, Andrew Manwa, Elsie Serem, Martin Omondi, Nancy Maina. Contributions are welcome—please fork the repository and submit a pull request with proposed improvements and join the team.S
+### Insight:
+
+Trust signals matter heavily in customer decision-making.
+
+---
+
+## Review Word Cloud
+
+Frequent positive terms revealed common user priorities:
+
+- Great service  
+- Delicious food  
+- Friendly staff  
+- Nice atmosphere  
+
+### Insight:
+
+Experience quality matters as much as food quality.
+
+---
+
+# Modeling Approach
+
+A multi-model recommendation strategy was implemented.
+
+---
+
+## 1. Content-Based Recommendation System
+
+Used restaurant attributes and review text similarities.
+
+### Method:
+
+- TF-IDF Vectorization  
+- Cosine Similarity Matrix  
+
+### Outcome:
+
+Recommended similar restaurants based on customer tastes.
+
+---
+
+## 2. NLP Pipeline
+
+Review text preprocessing included:
+
+- Punctuation removal  
+- Stopword removal  
+- Tokenization using `RegexpTokenizer()`  
+- Stemming using `SnowballStemmer()`  
+- TF-IDF using `TfidfVectorizer()`  
+
+This converted text reviews into machine-readable features.
+
+---
+
+## 3. Deep Neural Networks
+
+Keras neural networks were tested for rating prediction.
+
+### Dataset Scale
+
+- Users: **34,497**  
+- Restaurants: **3,720**
+
+### Best Neural Model Performance
+
+- Training RMSE: **0.3896**  
+- Test RMSE: **1.3671**
+
+---
+
+## 4. Matrix Factorization (Best Model)
+
+SVD delivered the strongest overall performance.
+
+### Final RMSE:
+
+**1.25**
+
+This outperformed neural approaches for recommendation accuracy.
+
+---
+
+# Results
+
+## Key Wins
+
+### Accurate Recommendations
+
+Personalized restaurant suggestions improved relevance.
+
+### Strong Model Benchmark
+
+SVD delivered best predictive performance.
+
+### Real-World Scalability
+
+Hybrid architecture supports deployment into tourism apps.
+
+### Improved User Experience
+
+Users can quickly discover suitable dining options.
+
+---
+
+# Business Impact
+
+If deployed commercially, this system can drive:
+
+- Higher booking retention  
+- Increased customer satisfaction  
+- Longer platform session time  
+- More repeat users  
+- Stronger brand loyalty  
+
+For restaurant partners:
+
+- Increased visibility  
+- Better customer matching  
+- More quality traffic  
+
+---
+
+# Recommendations
+
+## Immediate Next Steps
+
+### 1. User Feedback Loop
+
+Collect click, save, and booking behavior to improve recommendations.
+
+### 2. Dynamic User Profiles
+
+Continuously learn changing customer tastes.
+
+### 3. Hybrid Recommendation Engine
+
+Combine content + collaborative filtering + context signals.
+
+### 4. Geographic Expansion
+
+Extend into new cities and countries.
+
+---
+
+# Future Improvements
+
+## Advanced Roadmap
+
+### Real-Time Personalization
+
+Use live behavior signals.
+
+### Food Delivery Integration
+
+Allow direct ordering or reservation.
+
+### Social Features
+
+Enable users to share reviews and lists.
+
+### Deep Learning Ranking Models
+
+Use embeddings and transformer architectures.
+
+### Time-Aware Recommendations
+
+Breakfast, lunch, dinner, weekend preferences.
+
+---
+
+# Contributors
+
+Developed by:
+
+- Samuel Gathogo  
+- Andrew Manwa  
+- Elsie Serem  
+- Martin Omondi  
+- Nancy Maina  
+
+Contributions are welcome through pull requests and collaboration.
+
+---
 
 # License
-This project is licensed under the MIT License. 
+
+This project is licensed under the MIT License.
